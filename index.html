@@ -898,8 +898,121 @@ html, body, main, section, article, div, p, li, td, th, span, h1, h2, h3, h4, h5
 html, body { -webkit-user-drag: none; }
 img, a { -webkit-user-drag: none; }
 </style>
+<style id="auth-gate-styles">
+body.auth-locked > *:not(#authGate) { display: none !important; }
+#authGate { min-height: 100vh; background: #f5f1ee; color: #1f2937; display: grid; place-items: center; padding: 24px; position: relative; overflow: hidden; }
+#authGate::before, #authGate::after { content: ''; position: absolute; border-radius: 999px; filter: blur(2px); pointer-events: none; }
+#authGate::before { width: 520px; height: 520px; background: rgba(131,14,13,.08); top: -250px; right: -160px; }
+#authGate::after { width: 420px; height: 420px; background: rgba(13,148,136,.08); bottom: -230px; left: -150px; }
+.auth-shell { width: min(1040px, 100%); min-height: 650px; display: grid; grid-template-columns: .9fr 1.1fr; background: #fff; border: 1px solid #eadfda; border-radius: 26px; overflow: hidden; box-shadow: 0 24px 70px rgba(79,38,35,.14); position: relative; z-index: 1; }
+.auth-hero { background: linear-gradient(145deg, #6e1112 0%, #551f23 72%, #3d1a1e 100%); color: white; padding: 52px 42px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+.auth-hero::after { content: '✦'; position: absolute; right: 30px; bottom: 12px; font-size: 180px; line-height: 1; color: rgba(255,255,255,.07); transform: rotate(12deg); }
+.auth-eyebrow { text-transform: uppercase; letter-spacing: .16em; font-size: .68rem; font-weight: 800; opacity: .72; }
+.auth-hero h1 { font-size: clamp(2.6rem, 5vw, 4.6rem); line-height: .96; letter-spacing: -.07em; margin: 22px 0 18px; max-width: 380px; }
+.auth-hero p { color: rgba(255,255,255,.77); max-width: 330px; font-size: .95rem; line-height: 1.7; }
+.auth-hero-list { list-style: none; display: grid; gap: 14px; margin-top: 34px; position: relative; z-index: 1; }
+.auth-hero-list li { display: flex; align-items: center; gap: 10px; font-size: .78rem; color: rgba(255,255,255,.86); }
+.auth-hero-list span { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: rgba(255,255,255,.14); color: #f6d9c7; font-size: .72rem; }
+.auth-panel { padding: 42px clamp(25px, 5vw, 62px); display: flex; flex-direction: column; justify-content: center; }
+.auth-kicker { color: #830e0d; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+.auth-panel h2 { font-size: 1.8rem; letter-spacing: -.04em; color: #1f2937; }
+.auth-subtitle { color: #6b7280; font-size: .86rem; margin: 7px 0 23px; }
+.auth-tabs { display: flex; gap: 5px; background: #f5f1ee; padding: 4px; border-radius: 10px; margin-bottom: 21px; }
+.auth-tab { border: 0; background: transparent; color: #6b7280; font-weight: 700; padding: 10px 15px; border-radius: 7px; cursor: pointer; flex: 1; font-size: .82rem; }
+.auth-tab.active { color: #830e0d; background: #fff; box-shadow: 0 2px 8px rgba(79,38,35,.09); }
+.auth-form { display: grid; gap: 13px; }
+.auth-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.auth-field { display: grid; gap: 6px; }
+.auth-field.full { grid-column: 1 / -1; }
+.auth-field label { color: #374151; font-size: .73rem; font-weight: 700; }
+.auth-field input, .auth-field select { width: 100%; padding: 11px 12px; border: 1px solid #e5d9d3; border-radius: 9px; background: #fff; color: #1f2937; font: inherit; font-size: .82rem; outline: none; transition: border-color .18s, box-shadow .18s; }
+.auth-field input:focus, .auth-field select:focus { border-color: #830e0d; box-shadow: 0 0 0 3px rgba(131,14,13,.1); }
+.auth-password { position: relative; }
+.auth-password input { padding-right: 42px; }
+.auth-show { position: absolute; right: 10px; bottom: 8px; border: 0; background: transparent; color: #830e0d; cursor: pointer; font-size: .72rem; font-weight: 700; }
+.auth-check { display: flex; gap: 8px; align-items: flex-start; font-size: .72rem; line-height: 1.4; color: #6b7280; }
+.auth-check input { margin-top: 2px; accent-color: #830e0d; }
+.auth-check a { color: #830e0d; font-weight: 700; }
+.auth-submit { border: 0; border-radius: 10px; padding: 13px 16px; color: white; background: #830e0d; font: inherit; font-size: .82rem; font-weight: 800; cursor: pointer; box-shadow: 0 8px 18px rgba(131,14,13,.2); transition: transform .16s, background .16s; }
+.auth-submit:hover { background: #6e1112; transform: translateY(-1px); }
+.auth-submit:active { transform: scale(.98); }
+.auth-message { min-height: 17px; color: #b42318; font-size: .72rem; font-weight: 600; }
+.auth-message.success { color: #087f5b; }
+.auth-note { color: #9ca3af; font-size: .68rem; text-align: center; margin-top: 15px; }
+.auth-logout { position: fixed; top: 14px; right: 16px; z-index: 20; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); border-radius: 9px; padding: 8px 12px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-sm); }
+.auth-logout:hover { border-color: var(--primary-light); color: var(--primary-color); }
+@media (max-width: 760px) { #authGate { padding: 0; } .auth-shell { min-height: 100vh; border-radius: 0; grid-template-columns: 1fr; } .auth-hero { padding: 30px 25px; min-height: 285px; } .auth-hero h1 { font-size: 3rem; margin: 13px 0; } .auth-hero-list { grid-template-columns: 1fr 1fr; margin-top: 22px; gap: 9px; } .auth-panel { padding: 30px 22px 38px; } }
+@media (max-width: 420px) { .auth-form-grid { grid-template-columns: 1fr; } .auth-field.full { grid-column: auto; } .auth-hero-list { grid-template-columns: 1fr; } }
+</style>
 </head>
-<body>
+<body class="auth-locked">
+<div id="authGate" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="auth-shell">
+    <section class="auth-hero">
+      <div>
+        <div class="auth-eyebrow">FCPS / NRE preparation workspace</div>
+        <h1>LAST<br>ATTEMPT</h1>
+        <p>A focused clinical revision room for high-yield notes, systems-based learning, and active recall.</p>
+        <ul class="auth-hero-list">
+          <li><span>✓</span> 200+ high-yield topics</li>
+          <li><span>✓</span> NRE-style MCQ practice</li>
+          <li><span>✓</span> Personal study progress</li>
+          <li><span>✓</span> Built for serious revision</li>
+        </ul>
+      </div>
+      <div class="auth-eyebrow">by Dr. Ahmar Shakoor</div>
+    </section>
+    <section class="auth-panel">
+      <div class="auth-kicker">Private study access</div>
+      <h2 id="authTitle">Welcome back</h2>
+      <p class="auth-subtitle" id="authSubtitle">Sign in to continue your revision session.</p>
+      <div class="auth-tabs" role="tablist" aria-label="Account access">
+        <button class="auth-tab active" id="loginTab" type="button" onclick="switchAuth('login')">Sign in</button>
+        <button class="auth-tab" id="signupTab" type="button" onclick="switchAuth('signup')">Create account</button>
+      </div>
+      <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+        <div class="auth-field"><label for="loginEmail">Email address</label><input id="loginEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+        <div class="auth-field auth-password"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Enter your password"><button class="auth-show" type="button" onclick="togglePassword('loginPassword', this)">Show</button></div>
+        <div class="auth-message" id="loginMessage" aria-live="polite"></div>
+        <button class="auth-submit" type="submit">Enter LAST ATTEMPT →</button>
+      </form>
+      <form id="signupForm" class="auth-form" onsubmit="handleSignup(event)" style="display:none">
+        <div class="auth-form-grid">
+          <div class="auth-field"><label for="signupName">Full name</label><input id="signupName" type="text" autocomplete="name" required placeholder="Your full name"></div>
+          <div class="auth-field"><label for="signupEmail">Email address</label><input id="signupEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+          <div class="auth-field"><label for="signupPhone">Phone number</label><input id="signupPhone" type="tel" autocomplete="tel" required placeholder="+92 300 1234567"></div>
+          <div class="auth-field"><label for="signupGender">Gender</label><select id="signupGender" required><option value="">Select gender</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+          <div class="auth-field"><label for="signupDob">Date of birth</label><input id="signupDob" type="date" autocomplete="bday" required></div>
+          <div class="auth-field"><label for="signupOccupation">Occupation</label><input id="signupOccupation" type="text" autocomplete="organization-title" required placeholder="e.g. Medical student"></div>
+          <div class="auth-field"><label for="signupSpecialty">Specialty / field</label><input id="signupSpecialty" type="text" required placeholder="e.g. Surgery & Allied"></div>
+          <div class="auth-field"><label for="signupCity">City / country</label><input id="signupCity" type="text" autocomplete="address-level2" required placeholder="Lahore, Pakistan"></div>
+          <div class="auth-field auth-password"><label for="signupPassword">Create password</label><input id="signupPassword" type="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters"><button class="auth-show" type="button" onclick="togglePassword('signupPassword', this)">Show</button></div>
+          <div class="auth-field auth-password"><label for="signupConfirm">Confirm password</label><input id="signupConfirm" type="password" autocomplete="new-password" minlength="8" required placeholder="Repeat password"><button class="auth-show" type="button" onclick="togglePassword('signupConfirm', this)">Show</button></div>
+        </div>
+        <label class="auth-check"><input id="signupTerms" type="checkbox" required><span>I agree to use this study resource responsibly and understand that this browser prototype stores account details locally. <a href="#" onclick="return false">Privacy note</a></span></label>
+        <div class="auth-message" id="signupMessage" aria-live="polite"></div>
+        <button class="auth-submit" type="submit">Create account &amp; enter →</button>
+      </form>
+      <div class="auth-note">Your study dashboard is protected by an account gate.</div>
+    </section>
+  </div>
+</div>
+<script id="auth-flow-script">
+(function(){
+  const ACCOUNT_KEY='lastAttemptAccountV1', SESSION_KEY='lastAttemptSessionV1';
+  const $=id=>document.getElementById(id);
+  function account(){try{return JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'null')}catch(e){return null}}
+  function save(a){try{localStorage.setItem(ACCOUNT_KEY,JSON.stringify(a))}catch(e){}}
+  window.switchAuth=function(mode){
+    const signup=mode==='signup'; $('loginForm').style.display=signup?'none':'grid'; $('signupForm').style.display=signup?'grid':'none'; $('loginTab').classList.toggle('active',!signup); $('signupTab').classList.toggle('active',signup); $('authTitle').textContent=signup?'Create your account':'Welcome back'; $('authSubtitle').textContent=signup?'Tell us a little about yourself before you begin.':'Sign in to continue your revision session.'; document.querySelectorAll('.auth-message').forEach(m=>{m.textContent='';m.classList.remove('success')});
+  };
+  window.togglePassword=function(id,btn){const input=$(id);const show=input.type==='password';input.type=show?'text':'password';btn.textContent=show?'Hide':'Show'};
+  function enter(){localStorage.setItem(SESSION_KEY,'1');document.body.classList.remove('auth-locked');$('authGate').remove(); const b=document.createElement('button');b.className='auth-logout';b.type='button';b.textContent='Sign out';b.onclick=()=>{localStorage.removeItem(SESSION_KEY);location.reload()};document.body.appendChild(b)}
+  window.handleLogin=function(e){e.preventDefault();const msg=$('loginMessage'), a=account(), email=$('loginEmail').value.trim().toLowerCase(), pass=$('loginPassword').value;if(!a){msg.textContent='No account found on this browser. Create an account first.';return}if(email!==a.email||pass!==a.password){msg.textContent='Email or password does not match.';return}msg.textContent='Access granted. Opening your study room…';msg.classList.add('success');setTimeout(enter,260)};
+  window.handleSignup=function(e){e.preventDefault();const msg=$('signupMessage'), pass=$('signupPassword').value, confirm=$('signupConfirm').value;if(pass!==confirm){msg.textContent='Passwords do not match.';return}if(pass.length<8){msg.textContent='Use at least 8 characters for your password.';return}const a={name:$('signupName').value.trim(),email:$('signupEmail').value.trim().toLowerCase(),phone:$('signupPhone').value.trim(),gender:$('signupGender').value,dob:$('signupDob').value,occupation:$('signupOccupation').value.trim(),specialty:$('signupSpecialty').value.trim(),city:$('signupCity').value.trim(),password:pass,createdAt:new Date().toISOString()};save(a);msg.textContent='Account created. Opening your study room…';msg.classList.add('success');setTimeout(enter,260)};
+  if(localStorage.getItem(SESSION_KEY)==='1') enter();
+})();
+</script>
 <script id="site-protection-script">
 (function () {
   'use strict';
