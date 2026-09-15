@@ -697,6 +697,43 @@
  font-weight: 700;
  margin-bottom: 0.6rem;
  }
+
+ .question-subject-row {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 0.5rem;
+ flex-wrap: wrap;
+ }
+
+ .question-subject-row .question-subject {
+ margin-bottom: 0.6rem;
+ }
+
+ .q-section-count {
+ flex: 0 0 auto;
+ font-variant-numeric: tabular-nums;
+ font-weight: 900;
+ font-size: 0.72rem;
+ color: #fff;
+ background: var(--nre-burgundy, var(--primary-color));
+ border-radius: 999px;
+ padding: 0.2rem 0.6rem;
+ white-space: nowrap;
+ margin-bottom: 0.6rem;
+ display: none;
+ }
+
+ .q-section-count.show {
+ display: inline-block;
+ }
+
+ /* Section bar is now merged into the subject row above the question
+ (see .question-subject-row / .q-section-count), so the standalone bar
+ is retired to avoid showing the same subject + counter twice. */
+ .nre-section-bar {
+ display: none !important;
+ }
  .question-text {
  font-size: 1rem;
  font-weight: 600;
@@ -708,13 +745,14 @@
  display: block;
  width: 100%;
  text-align: left;
- padding: 0.75rem 1rem;
- margin-bottom: 0.6rem;
- border-radius: 10px;
- border: 1.5px solid var(--border-color);
+ padding: 0.55rem 0.85rem;
+ margin-bottom: 0.4rem;
+ border-radius: 9px;
+ border: 1px solid var(--border-color);
  background: var(--bg-color);
  color: var(--text-main);
- font-size: 0.9rem;
+ font-size: 0.88rem;
+ line-height: 1.35;
  cursor: pointer;
  font-weight: 500;
  }
@@ -25316,7 +25354,10 @@ img, a { -webkit-user-drag: none; }
  </div>
  <div class="question-card">
  <div id="qMeta" class="nre-mcq-meta"></div>
+ <div class="question-subject-row">
  <div class="question-subject" id="qSubject"></div>
+ <span class="q-section-count" id="qSectionCount"></span>
+ </div>
  <div class="question-text" id="qText"></div>
  <div id="qOptions"></div>
  <div class="quiz-mcq-actions"><button class="btn" onclick="toggleFlagCurrent()">🔖 Flag</button></div>
@@ -26095,14 +26136,17 @@ const PASS_THRESHOLD = 0.6;
  if(lbl) lbl.remove();
  }
 
- if(bar){
- if(q && q._section){
- bar.classList.add('show');
- document.getElementById('nreSectionName').textContent = q._section;
- document.getElementById('nreSectionGroup').textContent = q._group || '';
- document.getElementById('nreSectionCount').textContent = `${q._secIdx} / ${q._secTotal}`;
+ // The standalone section bar is retired (see .nre-section-bar CSS);
+ // its subject name now goes through #qSubject above, and its counter
+ // is shown inline next to the subject via #qSectionCount instead.
+ const secCount = document.getElementById('qSectionCount');
+ if(secCount){
+ if(q && q._section && q._secIdx && q._secTotal){
+ secCount.textContent = `${q._secIdx} / ${q._secTotal}`;
+ secCount.classList.add('show');
  } else {
- bar.classList.remove('show');
+ secCount.textContent = '';
+ secCount.classList.remove('show');
  }
  }
  if(oc){
