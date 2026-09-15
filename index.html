@@ -823,6 +823,29 @@
 .nre-modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;align-items:center;justify-content:center;z-index:9999;padding:15px}.nre-modal.open{display:flex}.nre-modal-card{width:min(850px,96vw);max-height:90vh;overflow:auto;background:var(--card-bg);color:var(--text-main);border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.25)}.nre-modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--border-color);padding-bottom:10px;margin-bottom:12px}.nre-close{border:0;background:transparent;font-size:1.5rem;cursor:pointer;color:var(--text-main)}
 @media(max-width:600px){.nre-stat-grid{grid-template-columns:repeat(2,1fr)}.nre-stat{padding:8px}.nre-exam-grid{grid-template-columns:1fr 1fr}}
 
+/* ===== PRACTICE TOOLS: CENTRED ON EVERY DEVICE ===== */
+#nreQuizTools .nre-panel-title{text-align:center}
+#nreQuizTools .nre-chip-row{justify-content:center;align-items:stretch;gap:8px}
+#nreQuizTools .nre-chip{flex:0 1 auto;display:inline-flex;align-items:center;justify-content:center;text-align:center;line-height:1.25;padding:9px 13px}
+@media(max-width:760px){#nreQuizTools .nre-chip{flex:1 1 calc(50% - 8px);min-width:0}}
+@media(max-width:400px){#nreQuizTools .nre-chip{flex:1 1 100%}}
+
+/* ===== 200-Q BLUEPRINT SECTION BAR ===== */
+.nre-section-bar{display:none;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(90deg,rgba(122,46,51,.11),rgba(200,107,45,.05));border:1px solid var(--border-color);border-left:4px solid var(--nre-burgundy);border-radius:11px;padding:.55rem .75rem;margin:0 0 .65rem}
+.nre-section-bar.show{display:flex}
+.nre-section-txt{min-width:0}
+.nre-section-name{display:block;font-weight:900;font-size:.84rem;letter-spacing:.02em;color:var(--nre-burgundy);text-transform:uppercase;line-height:1.2}
+.nre-section-group{display:block;font-size:.6rem;font-weight:800;letter-spacing:.07em;color:var(--text-muted);text-transform:uppercase;margin-top:2px}
+.nre-section-count{flex:0 0 auto;font-variant-numeric:tabular-nums;font-weight:900;font-size:.82rem;color:#fff;background:var(--nre-burgundy);border-radius:999px;padding:.24rem .66rem;white-space:nowrap}
+.quiz-overall-count{display:none;font-variant-numeric:tabular-nums;font-weight:900;font-size:.8rem;color:#fff;background:var(--nre-charcoal);border-radius:999px;padding:.2rem .6rem;white-space:nowrap}
+.quiz-overall-count.show{display:inline-block}
+.nre-blueprint-table{width:100%;border-collapse:collapse;font-size:.76rem;margin-top:6px}
+.nre-blueprint-table th,.nre-blueprint-table td{border:1px solid var(--border-color);padding:6px 7px;text-align:left}
+.nre-blueprint-table th{background:rgba(122,46,51,.09);color:var(--nre-burgundy);font-weight:900}
+.nre-blueprint-table td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nre-bp-group td{background:rgba(122,46,51,.05);font-weight:900;color:var(--nre-burgundy)}
+@media(max-width:600px){.nre-section-name{font-size:.72rem}.nre-section-count{font-size:.72rem;padding:.2rem .52rem}.quiz-overall-count{font-size:.68rem}}
+
 
 /* Study-system upgrade */
 .study-tools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px auto}.study-tools button{border:1px solid var(--border-color);background:var(--card-bg);color:var(--text-main);padding:9px 12px;border-radius:999px;font-weight:800;cursor:pointer}.study-tools button:hover{border-color:var(--primary-color)}.study-dashboard{max-width:1100px;margin:14px auto;padding:0 12px}.study-dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.study-dashboard .dash-card{padding:13px;border:1px solid var(--border-color);border-radius:12px;background:var(--card-bg)}.rapid-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}.rapid-card{border:1px solid var(--border-color);border-radius:12px;padding:12px;background:var(--card-bg)}.rapid-card h3{margin-bottom:6px;color:var(--primary-color)}
@@ -25271,7 +25294,7 @@ img, a { -webkit-user-drag: none; }
   <div class="nre-panel-title">PRACTICE TOOLS</div>
   <div class="nre-chip-row">
     <button class="nre-chip" onclick="openCreateQuizModal()">🎯 Create Quiz</button>
-    <button class="nre-chip" onclick="startExamMode()">📝 100-Q NRE Exam Mode</button>
+    <button class="nre-chip" onclick="startExamMode(200)">📝 200-Q NRE Exam Mode</button>
     <button class="nre-chip" onclick="startExamMode(50)">⚡ 50-Q Quick Exam</button>
     <button class="nre-chip" onclick="openAnalytics()">📊 Performance Analytics</button>
     <button class="nre-chip" onclick="showFlagged()">🔖 Flagged MCQs</button>
@@ -25284,9 +25307,13 @@ img, a { -webkit-user-drag: none; }
         <div id="quizRunner" style="display:none">
             <div class="quiz-topbar">
                 <span id="quizRunnerTitle"></span>
-                <span class="nre-exam-badge" id="quizModeBadge"></span><span class="nre-timer" id="quizTimer"></span><span class="quiz-score-live" id="quizLiveScore">0 / 0</span>
+                <span class="nre-exam-badge" id="quizModeBadge"></span><span class="nre-timer" id="quizTimer"></span><span class="quiz-score-live" id="quizLiveScore">0 / 0</span><span class="quiz-overall-count" id="quizOverallCount"></span>
             </div>
             <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+            <div class="nre-section-bar" id="nreSectionBar">
+                <span class="nre-section-txt"><span class="nre-section-name" id="nreSectionName"></span><span class="nre-section-group" id="nreSectionGroup"></span></span>
+                <span class="nre-section-count" id="nreSectionCount"></span>
+            </div>
             <div class="question-card">
                 <div id="qMeta" class="nre-mcq-meta"></div>
                 <div class="question-subject" id="qSubject"></div>
@@ -25839,11 +25866,259 @@ const PASS_THRESHOLD = 0.6;
     function closeNreModal(){document.getElementById('nreModal').classList.remove('open');}
     document.getElementById('nreModal')?.addEventListener('click',e=>{if(e.target.id==='nreModal')closeNreModal()});
 
-    function startExamMode(size=100){
-      const pool=allQuestions(); if(!pool.length)return; nreExamMode=true;nreExamSize=Math.min(size,pool.length);currentQuestions=shuffle(pool).slice(0,nreExamSize).map(shuffleQuestionOptions);currentQuizKey=currentQuestions[0]._key;currentIndex=0;score=0;missed=[];answerStates=new Array(currentQuestions.length).fill(null);stopExamTimer();nreTimerSeconds=(nreExamSize===100?120:60)*60;document.getElementById('quizPicker').style.display='none';document.getElementById('quizResult').style.display='none';document.getElementById('quizRunner').style.display='block';document.getElementById('quizRunnerTitle').textContent='NRE EXAM MODE';document.getElementById('quizModeBadge').textContent=`${nreExamSize}-QUESTION EXAM`;renderQuestion();startExamTimer(); }
+    function startExamMode(size=200){
+      if(size===200){ return startBlueprintExam(); }
+      const pool=allQuestions(); if(!pool.length)return; nreExamMode=true;nreBlueprintMode=false;nreExamSize=Math.min(size,pool.length);currentQuestions=shuffle(pool).slice(0,nreExamSize).map(shuffleQuestionOptions);currentQuizKey=currentQuestions[0]._key;currentIndex=0;score=0;missed=[];answerStates=new Array(currentQuestions.length).fill(null);stopExamTimer();nreTimerSeconds=(nreExamSize===100?120:60)*60;document.getElementById('quizPicker').style.display='none';document.getElementById('quizResult').style.display='none';document.getElementById('quizRunner').style.display='block';document.getElementById('quizRunnerTitle').textContent='NRE EXAM MODE';document.getElementById('quizModeBadge').textContent=`${nreExamSize}-QUESTION EXAM`;renderQuestion();startExamTimer(); }
+
+    /* ===================================================================
+       PM&DC NRE 200-MCQ THEORY PAPER — OFFICIAL TABLE OF SPECIFICATIONS
+       Clinical Sciences 70% (140) + Applied Basic Sciences 30% (60).
+       Questions are laid out in blueprint order, so the paper runs
+       Medicine & Allied (52) -> Surgery & Allied (48) -> ... -> Forensic (4).
+       Pass mark 60%; no negative marking.
+       =================================================================== */
+    let nreBlueprintMode = false;
+    const NRE_EXAM_MINUTES = 180;   // change this if PM&DC allots a different duration
+
+    /* -------------------------------------------------------------------
+       WHICH TABLE OF SPECIFICATIONS TO USE
+       '2024' = PM&DC notification of 30 April 2024 (current).
+       '2023' = the original NRE 2023 syllabus.
+       Clinical Sciences (140) is identical in both. The Applied Basic
+       Sciences rows differ, and note the discrepancy handled below.
+       ------------------------------------------------------------------- */
+    const NRE_TOS_EDITION = '2024';
+
+    /* The 2024 notification lists ABS as 11/11/10/8/6/6/4, which sums to 56,
+       yet states "Total 60" against a 30% weightage of a 200-MCQ paper.
+       The 2023 table (16/12/10/8/6/6/2) summed to 60 correctly.
+       NRE_ABS_RESIDUAL decides which discipline absorbs the 4 unallocated
+       MCQs so the paper always totals exactly 200. Set it to null to leave
+       the paper at 196 instead. */
+    const NRE_ABS_RESIDUAL = 'Applied Pathology';
+    const NRE_ABS_TOTAL = 60;
+
+    const NRE_ABS_COUNTS = {
+      '2024': { 'Applied Pathology':11, 'Applied Anatomy':11, 'Applied Physiology':10,
+                'Clinical Pharmacology':8, 'Applied Biochemistry':6, 'Community Medicine':6,
+                'Forensic Medicine & Toxicology':4 },
+      '2023': { 'Applied Pathology':16, 'Applied Anatomy':12, 'Applied Physiology':10,
+                'Clinical Pharmacology':8, 'Applied Biochemistry':6, 'Community Medicine':6,
+                'Forensic Medicine & Toxicology':2 }
+    };
+
+    // Clinical Sciences counts are fixed; ABS counts are resolved per edition.
+    const NRE_BLUEPRINT_DEFS = [
+      { group:'Clinical Sciences', name:'Medicine & Allied', count:52,
+        keys:['cvs','resp','endo','renal','gi','hepato','heme','rheum','neuro','psych','nums_nums_medicine'] },
+      { group:'Clinical Sciences', name:'Surgery & Allied', count:48,
+        keys:['surgery','nums_nums_surgery'] },
+      { group:'Clinical Sciences', name:'Obstetrics & Gynaecology', count:14,
+        keys:['obgyn'] },
+      { group:'Clinical Sciences', name:'Paediatrics', count:14,
+        keys:['peds','nums_nums_pediatrics'] },
+      { group:'Clinical Sciences', name:'Ophthalmology (Eye)', count:6,
+        keys:['eye'] },
+      { group:'Clinical Sciences', name:'Otorhinolaryngology (ENT)', count:6,
+        keys:['ent'] },
+      { group:'Applied Basic Sciences', name:'Applied Pathology',
+        keys:['path','neoplasia','immuno','micro'] },
+      { group:'Applied Basic Sciences', name:'Applied Anatomy',
+        keys:['upper_limb','lower_limb','abdomen','thorax','head_neck'] },
+      { group:'Applied Basic Sciences', name:'Applied Physiology',
+        keys:[], subjects:['applied physiology','physiolog'],
+        textMatch:/\b(physiolog|action potential|resting membrane|cardiac output|stroke volume|ejection fraction|glomerular filtration|reabsorb|acid[- ]?base|osmolal|osmotic|baroreceptor|chemoreceptor|surfactant|compliance|oxygen dissociation|haemoglobin curve|hemoglobin curve|starling|homeostas|conduction velocity|refractory period|secretion of)\b/i,
+        fallbackKeys:['cvs','resp','renal','endo','neuro'] },
+      { group:'Applied Basic Sciences', name:'Clinical Pharmacology',
+        keys:['pharm'] },
+      { group:'Applied Basic Sciences', name:'Applied Biochemistry',
+        keys:['biochem'] },
+      { group:'Applied Basic Sciences', name:'Community Medicine',
+        keys:[], subjects:['community medicine','public health','epidemiolog','biostat'],
+        textMatch:/\b(incidence|prevalence|epidemiolog|herd immunity|outbreak|notifiable|surveillance|immuni[sz]ation schedule|vaccination schedule|EPI schedule|screening programme|screening program|sensitivity and specificity|positive predictive|case[- ]control|cohort study|randomi[sz]ed controlled|infant mortality|maternal mortality|primary health care|sanitation|safe drinking water|disease burden)\b/i },
+      { group:'Applied Basic Sciences', name:'Forensic Medicine & Toxicology',
+        keys:[], subjects:['forensic','toxicolog'],
+        textMatch:/\b(antidote|poisoning|toxicity|overdose|organophosphate|paraquat|carbon monoxide|methanol poison|snake ?bite|post[- ]?mortem|autopsy|medico[- ]?legal|rigor mortis|forensic|lead poison|arsenic|cyanide|paracetamol overdose|N[- ]?acetylcysteine|naloxone|flumazenil|deferoxamine)\b/i }
+    ];
+
+    // Resolves the live blueprint: clinical counts as-is, ABS counts from the
+    // chosen edition, plus the residual top-up so the paper totals 200.
+    function resolveNreBlueprint(){
+      const abs = NRE_ABS_COUNTS[NRE_TOS_EDITION] || NRE_ABS_COUNTS['2024'];
+      let listed = 0;
+      Object.keys(abs).forEach(k => { listed += abs[k]; });
+      const residual = Math.max(0, NRE_ABS_TOTAL - listed);
+      return NRE_BLUEPRINT_DEFS.map(def => {
+        const sec = Object.assign({}, def);
+        if(sec.group === 'Applied Basic Sciences'){
+          sec.count = abs[sec.name] || 0;
+          if(NRE_ABS_RESIDUAL && sec.name === NRE_ABS_RESIDUAL) sec.count += residual;
+        }
+        return sec;
+      });
+    }
+
+    let NRE_BLUEPRINT = resolveNreBlueprint();
+
+    function nreLc(s){ return (s||'').toLowerCase(); }
+
+    // Builds a 200-question paper that follows the blueprint exactly.
+    // Each section is filled in this order of preference:
+    //   1. its own category keys  2. matching subject tags
+    //   3. keyword match on stem/explanation  4. related fallback categories
+    //   5. general pool, so the paper always totals 200
+    function buildBlueprintExam(){
+      NRE_BLUEPRINT = resolveNreBlueprint();
+      const pool = allQuestions();
+      if(!pool.length) return [];
+      const used = new Set();
+      const idOf = q => q._key + '#' + q._i;
+      const take = (cands, n) => {
+        const out = [];
+        if(n <= 0) return out;
+        for(const q of shuffle(cands)){
+          if(out.length >= n) break;
+          const id = idOf(q);
+          if(used.has(id)) continue;
+          used.add(id); out.push(q);
+        }
+        return out;
+      };
+      const exam = [];
+      NRE_BLUEPRINT.forEach(sec => {
+        let picked = [];
+        if(sec.keys && sec.keys.length){
+          picked = take(pool.filter(q => sec.keys.indexOf(q._key) !== -1), sec.count);
+        }
+        if(picked.length < sec.count && sec.subjects){
+          picked = picked.concat(take(
+            pool.filter(q => sec.subjects.some(s => nreLc(q.subject).indexOf(s) !== -1)),
+            sec.count - picked.length));
+        }
+        if(picked.length < sec.count && sec.textMatch){
+          picked = picked.concat(take(
+            pool.filter(q => sec.textMatch.test(q.q || '') || sec.textMatch.test(cleanText(q.exp || ''))),
+            sec.count - picked.length));
+        }
+        if(picked.length < sec.count && sec.fallbackKeys){
+          picked = picked.concat(take(
+            pool.filter(q => sec.fallbackKeys.indexOf(q._key) !== -1),
+            sec.count - picked.length));
+        }
+        if(picked.length < sec.count){
+          picked = picked.concat(take(pool, sec.count - picked.length));
+        }
+        const total = picked.length;
+        picked.forEach((q, i) => exam.push(Object.assign({}, q, {
+          _section: sec.name, _group: sec.group, _secIdx: i + 1, _secTotal: total
+        })));
+      });
+      return exam;
+    }
+
+    function startBlueprintExam(){
+      const exam = buildBlueprintExam();
+      if(!exam.length) return;
+      nreExamMode = true; nreBlueprintMode = true; nreExamSize = exam.length;
+      currentQuestions = exam.map(shuffleQuestionOptions);
+      currentQuizKey = currentQuestions[0]._key;
+      currentIndex = 0; score = 0; missed = [];
+      answerStates = new Array(currentQuestions.length).fill(null);
+      stopExamTimer(); nreTimerSeconds = NRE_EXAM_MINUTES * 60;
+      closeNreModal();
+      document.getElementById('quizPicker').style.display = 'none';
+      document.getElementById('quizResult').style.display = 'none';
+      document.getElementById('quizRunner').style.display = 'block';
+      document.getElementById('quizRunnerTitle').textContent = 'NRE THEORY PAPER';
+      document.getElementById('quizModeBadge').textContent = '';
+      renderQuestion(); startExamTimer();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Section heading bar (name left, "4 / 11" right) + overall "40 / 200" counter.
+    function updateNreSectionBar(){
+      const bar = document.getElementById('nreSectionBar');
+      const oc  = document.getElementById('quizOverallCount');
+      const q   = currentQuestions[currentIndex];
+      const inPaper = !!(q && q._section);
+
+      // In the 200-Q blueprint paper the subject chip shows the PM&DC
+      // discipline (e.g. "Medicine & Allied"), not the source system.
+      const subj = document.getElementById('qSubject');
+      if(subj && inPaper) subj.textContent = q._section;
+
+      // The paper carries its own counters, so the running score and the
+      // "QUESTION n OF 200" label are suppressed here only. Every other
+      // quiz mode keeps them.
+      const live = document.getElementById('quizLiveScore');
+      if(live) live.style.display = inPaper ? 'none' : '';
+
+      // The emptied badge would still take a slot in the space-between
+      // topbar, so remove it from flow entirely during the paper.
+      const badge = document.getElementById('quizModeBadge');
+      if(badge) badge.style.display = inPaper ? 'none' : '';
+
+      const meta = document.getElementById('qMeta');
+      if(meta && inPaper){
+        const lbl = meta.querySelector('.q-number-label');
+        if(lbl) lbl.remove();
+      }
+
+      if(bar){
+        if(q && q._section){
+          bar.classList.add('show');
+          document.getElementById('nreSectionName').textContent  = q._section;
+          document.getElementById('nreSectionGroup').textContent = q._group || '';
+          document.getElementById('nreSectionCount').textContent = `${q._secIdx} / ${q._secTotal}`;
+        } else {
+          bar.classList.remove('show');
+        }
+      }
+      if(oc){
+        if(nreExamMode && currentQuestions.length){
+          oc.classList.add('show');
+          const tot = currentQuestions.length;
+          oc.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${tot}`;
+        } else {
+          oc.classList.remove('show');
+          oc.textContent = '';
+        }
+      }
+    }
+
+    // Per-section score table for the results screen.
+    function nreBlueprintBreakdownHtml(){
+      const agg = [];
+      const byName = {};
+      currentQuestions.forEach((q, i) => {
+        if(!q._section) return;
+        let r = byName[q._section];
+        if(!r){ r = byName[q._section] = { name:q._section, group:q._group, total:0, right:0, wrong:0 }; agg.push(r); }
+        r.total++;
+        if(answerStates[i] === 'correct') r.right++;
+        else if(answerStates[i] === 'wrong') r.wrong++;
+      });
+      if(!agg.length) return '';
+      let rows = '', lastGroup = '';
+      agg.forEach(r => {
+        if(r.group !== lastGroup){
+          lastGroup = r.group;
+          rows += `<tr class="nre-bp-group"><td colspan="3">${r.group}</td></tr>`;
+        }
+        const done = r.right + r.wrong;
+        const pct  = done ? Math.round(r.right / done * 100) : 0;
+        const skipped = r.total - done;
+        rows += `<tr><td>${r.name}${skipped ? ` <span style="color:var(--text-muted);font-weight:700">(${skipped} unattempted)</span>` : ''}</td>`
+             +  `<td class="num">${r.right} / ${r.total}</td>`
+             +  `<td class="num">${done ? pct + '%' : '—'}</td></tr>`;
+      });
+      return `<h3 style="margin-top:14px">Blueprint breakdown</h3>`
+           + `<table class="nre-blueprint-table"><tr><th>Section</th><th class="num">Score</th>`
+           + `<th class="num">Accuracy</th></tr>${rows}</table>`;
+    }
     function startExamTimer(){stopExamTimer();nreTimerHandle=setInterval(()=>{nreTimerSeconds--;updateExamTimer();if(nreTimerSeconds<=0){stopExamTimer();showResult();}},1000);updateExamTimer();}
     function stopExamTimer(){if(nreTimerHandle){clearInterval(nreTimerHandle);nreTimerHandle=null;}}
-    function updateExamTimer(){const e=document.getElementById('quizTimer');if(!e)return;if(!nreExamMode){e.textContent='';return;}const m=Math.floor(nreTimerSeconds/60),s=nreTimerSeconds%60;e.textContent=`⏱ ${m}:${String(s).padStart(2,'0')}`;}
+    function updateExamTimer(){const e=document.getElementById('quizTimer');if(!e)return;if(!nreExamMode){e.textContent='';return;}const t=Math.max(0,nreTimerSeconds);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;const p=n=>String(n).padStart(2,'0');e.textContent=h>0?`⏱ ${h}:${p(m)}:${p(s)}`:`⏱ ${p(m)}:${p(s)}`;}
     const _originalShowResult=showResult;
     showResult=function(){stopExamTimer(); if(nreExamMode){nreState.examHistory.push({date:todayKey(),score,total:currentQuestions.length,percent:Math.round(score/currentQuestions.length*100)});saveNre();} _originalShowResult(); const wrap=document.getElementById('reviewList'); if(wrap && nreExamMode){wrap.insertAdjacentHTML('afterbegin',`<div class="nre-analytics"><div class="box"><div class="big">${score}/${currentQuestions.length}</div><div class="small">Exam score</div></div><div class="box"><div class="big">${Math.round(score/currentQuestions.length*100)}%</div><div class="small">Accuracy</div></div><div class="box"><div class="big">${missed.length}</div><div class="small">Questions to review</div></div></div>`); } nreExamMode=false; };
     const _originalQuitQuiz=quitQuiz; quitQuiz=function(){stopExamTimer();nreExamMode=false;_originalQuitQuiz();};
@@ -25879,6 +26154,39 @@ const PASS_THRESHOLD = 0.6;
     function injectTopicFlags(){ document.querySelectorAll('.topic-card').forEach(card=>{ const header=card.querySelector(':scope > .topic-header'); if(!header || header.querySelector('.topic-flag-btn'))return; const btn=document.createElement('button'); btn.type='button'; btn.className='topic-flag-btn'; btn.title='Save this topic'; btn.setAttribute('aria-label','Flag topic'); btn.onclick=()=>toggleTopicFlag(btn); header.appendChild(btn); updateTopicFlagButton(btn,isTopicFlagged(card)); }); }
     function showFlaggedTopics(){ const flagged=[...document.querySelectorAll('.topic-card')].filter(isTopicFlagged); if(!flagged.length){ showModal('Flagged Topics','<div class="intro-banner">No topics have been flagged yet. Use the 🚩 Flag button on any topic to save it here.</div>'); return; } window.__flaggedTopicCards=flagged; const h='<div class="nre-chip-row"><span class="nre-badge">'+flagged.length+' flagged topic'+(flagged.length===1?'':'s')+'</span></div>'+flagged.map((card,i)=>{ const name=cleanText(card.querySelector('.topic-name')?.textContent||'Topic'); const sys=cleanText(card.closest('.system-section')?.querySelector('.sys-title')?.textContent||''); return `<div class="review-item"><strong>${i+1}. ${name}</strong><div style="font-size:.7rem;margin-top:4px">${sys}</div><button class="nre-chip" type="button" onclick="jumpToFlaggedTopic(${i})">Open Topic</button></div>`; }).join(''); showModal('Flagged Topics',h); }
     function jumpToFlaggedTopic(i){ const card=window.__flaggedTopicCards?.[i]; if(!card)return; closeNreModal(); card.scrollIntoView({behavior:'smooth',block:'center'}); const d=card.querySelector(':scope > details'); if(d)d.open=true; }
+
+    /* ===== BLUEPRINT HOOKS — must come after all earlier wrappers ===== */
+    const _bpRenderQuestion = renderQuestion;
+    renderQuestion = function(){ _bpRenderQuestion(); updateNreSectionBar(); };
+
+    const _bpSelectAnswer = selectAnswer;
+    selectAnswer = function(i){ _bpSelectAnswer(i); updateNreSectionBar(); };
+
+    // Flagging redraws the question meta, which would restore the
+    // "QUESTION n OF 200" label — re-apply the paper's cleanup afterwards.
+    const _bpToggleFlag = toggleFlagCurrent;
+    toggleFlagCurrent = function(){ _bpToggleFlag(); updateNreSectionBar(); };
+
+    const _bpShowResult = showResult;
+    showResult = function(){
+      const wasBlueprint = nreBlueprintMode;
+      const breakdown = wasBlueprint ? nreBlueprintBreakdownHtml() : '';
+      _bpShowResult();
+      const bar = document.getElementById('nreSectionBar'); if(bar) bar.classList.remove('show');
+      const oc = document.getElementById('quizOverallCount'); if(oc){ oc.classList.remove('show'); oc.textContent=''; }
+      if(wasBlueprint && breakdown){
+        const wrap = document.getElementById('reviewList');
+        if(wrap) wrap.insertAdjacentHTML('afterbegin', breakdown);
+      }
+    };
+
+    // Retrying a blueprint paper should generate a fresh 200-Q paper,
+    // not fall back to a single-system quiz.
+    const _bpRetryQuiz = retryQuiz;
+    retryQuiz = function(){ if(nreBlueprintMode){ startBlueprintExam(); return; } _bpRetryQuiz(); };
+
+    const _bpBackToPicker = backToPicker;
+    backToPicker = function(){ nreBlueprintMode = false; _bpBackToPicker(); };
 
     // Initial upgrade setup
     injectTopicFlags(); updateNreDashboard();
