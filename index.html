@@ -693,13 +693,6 @@
     .feedback-box .fb-verdict { font-weight: 800; margin-bottom: 0.35rem; }
     .feedback-box .fb-pearl { margin-top: 0.5rem; font-size: 0.82rem; color: var(--text-muted); }
 
-    .quiz-nav-row {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1.1rem;
-        gap: 0.6rem;
-    }
-
     .result-wrap { text-align: center; padding: 1.5rem 1rem; }
     .result-circle {
         width: 140px; height: 140px; border-radius: 50%;
@@ -768,6 +761,15 @@
 .nre-timer{font-variant-numeric:tabular-nums;font-weight:900;color:var(--nre-burgundy);font-size:1.05rem}.nre-exam-badge{font-size:.68rem;font-weight:900;color:var(--nre-orange)}
 .nre-analytics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:10px 0}.nre-analytics .box{border:1px solid var(--border-color);border-radius:10px;padding:10px;background:var(--bg-color)}.nre-analytics .big{font-size:1.25rem;font-weight:900;color:var(--nre-burgundy)}.nre-analytics .small{font-size:.68rem;color:var(--text-muted)}
 .nre-compare{margin:14px 0;overflow:auto}.nre-compare table{width:100%;border-collapse:collapse;font-size:.76rem}.nre-compare th,.nre-compare td{border:1px solid var(--border-color);padding:7px;text-align:left;vertical-align:top}.nre-compare th{background:rgba(122,46,51,.09);color:var(--nre-burgundy);font-weight:900}
+.cq-section{margin-bottom:14px}
+.cq-label{font-weight:900;font-size:.82rem;color:var(--text-main);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cq-sys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px;max-height:260px;overflow:auto;border:1px solid var(--border-color);border-radius:10px;padding:8px}
+.cq-sys-opt{display:flex;align-items:center;gap:7px;font-size:.82rem;padding:6px 7px;border-radius:8px;cursor:pointer}
+.cq-sys-opt:hover{background:var(--bg-color)}
+.cq-sys-opt input{width:16px;height:16px;flex:0 0 auto;accent-color:var(--primary-color)}
+.cq-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cq-preview{font-size:.8rem;font-weight:800;color:var(--nre-burgundy);padding:8px 10px;border:1px dashed var(--border-color);border-radius:10px;background:var(--bg-color)}
+@media(max-width:600px){.cq-row{grid-template-columns:1fr}.cq-sys-grid{grid-template-columns:1fr 1fr}}
 .nre-modal{position:fixed;inset:0;background:rgba(0,0,0,.48);display:none;align-items:center;justify-content:center;z-index:9999;padding:15px}.nre-modal.open{display:flex}.nre-modal-card{width:min(850px,96vw);max-height:90vh;overflow:auto;background:var(--card-bg);color:var(--text-main);border-radius:16px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.25)}.nre-modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--border-color);padding-bottom:10px;margin-bottom:12px}.nre-close{border:0;background:transparent;font-size:1.5rem;cursor:pointer;color:var(--text-main)}
 @media(max-width:600px){.nre-stat-grid{grid-template-columns:repeat(2,1fr)}.nre-stat{padding:8px}.nre-exam-grid{grid-template-columns:1fr 1fr}}
 
@@ -833,6 +835,28 @@
     padding:.65rem 0;
     border-top:1px solid var(--border-color);
 }
+.quiz-nav-row .quiz-prev-btn,.quiz-nav-row .quiz-next-btn{
+    width:52px;
+    height:52px;
+    min-height:52px;
+    padding:0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.3rem;
+    font-weight:900;
+    line-height:1;
+    flex:0 0 auto;
+    background:var(--card-bg);
+    border:2px solid var(--primary-color);
+    color:var(--primary-color);
+    box-shadow:var(--shadow-sm);
+}
+.quiz-nav-row .quiz-prev-btn:hover,.quiz-nav-row .quiz-next-btn:hover{
+    background:var(--primary-color);
+    color:#fff;
+}
 .quiz-nav-row .quiz-prev-btn{justify-self:start}
 .quiz-nav-row .quiz-next-btn{justify-self:end}
 .quiz-nav-row .quiz-done-btn{
@@ -840,6 +864,8 @@
     background:#830e0d;
     color:#fff;
     border-color:#830e0d;
+    border-radius:999px;
+    font-weight:800;
 }
 .quiz-nav-row .quiz-done-btn:hover{
     background:#6f0c0b;
@@ -868,16 +894,20 @@
     padding:7px 0 calc(7px + env(safe-area-inset-bottom));
     margin-top:6px;
  }
- .quiz-nav-row .btn{
-    min-height:44px;
-    border-radius:10px;
-    padding:0 .8rem;
-    font-weight:900;
- }
  .quiz-nav-row .quiz-done-btn{
+    min-height:46px;
+    border-radius:999px;
+    padding:0 1rem;
+    font-weight:900;
     background:#830e0d;
     color:#fff;
     border-color:#830e0d;
+ }
+ .quiz-nav-row .quiz-prev-btn,.quiz-nav-row .quiz-next-btn{
+    width:56px;
+    height:56px;
+    min-height:56px;
+    font-size:1.4rem;
  }
 
 }
@@ -25184,12 +25214,12 @@ img, a { -webkit-user-drag: none; }
 <div class="nre-exam-panel" id="nreQuizTools">
   <div class="nre-panel-title">PRACTICE TOOLS</div>
   <div class="nre-chip-row">
+    <button class="nre-chip" onclick="openCreateQuizModal()">🎯 Create Quiz</button>
     <button class="nre-chip" onclick="startExamMode()">📝 100-Q NRE Exam Mode</button>
     <button class="nre-chip" onclick="startExamMode(50)">⚡ 50-Q Quick Exam</button>
     <button class="nre-chip" onclick="openAnalytics()">📊 Performance Analytics</button>
     <button class="nre-chip" onclick="showFlagged()">🔖 Flagged MCQs</button>
     <button class="nre-chip" onclick="showMistakes()">✗ My Mistakes</button>
-    <button class="nre-chip" onclick="showStudyDashboard()">📈 Dashboard</button>
   </div>
 </div>
 <div class="quiz-picker-grid" id="quizCardGrid"></div>
@@ -25332,10 +25362,6 @@ const PASS_THRESHOLD = 0.6;
 
     function toggleSystems(expand) {
         document.querySelectorAll('.system-section').forEach(sec => sec.open = expand);
-    }
-
-    function toggleDetails(expand) {
-        document.querySelectorAll('.topic-card > details').forEach(d => d.open = expand);
     }
 
     function toggleDarkMode() {
@@ -25635,6 +25661,93 @@ const PASS_THRESHOLD = 0.6;
       });
       grid.innerHTML=html||'<div class="intro-banner">No questions match these filters.</div>';
     }
+    // ===== Create Quiz: pick any combination of systems + question count (20-100) + status filter =====
+    function openCreateQuizModal(){
+      const sysHtml = Object.entries(QUIZ_DATA).map(([key,b])=>`<label class="cq-sys-opt"><input type="checkbox" class="cq-sys-check" value="${key}" checked> <span>${b.icon} ${b.title}</span></label>`).join('');
+      const html = `
+        <div class="cq-section">
+          <div class="cq-label">Systems <button type="button" class="nre-chip" onclick="cqToggleAllSystems(true)">Select All</button> <button type="button" class="nre-chip" onclick="cqToggleAllSystems(false)">Clear</button></div>
+          <div class="cq-sys-grid" id="cqSysGrid">${sysHtml}</div>
+        </div>
+        <div class="cq-section cq-row">
+          <div class="nre-field">
+            <label for="cqCount">Number of MCQs (20–100)</label>
+            <input type="number" id="cqCount" min="20" max="100" step="5" value="50" oninput="cqUpdatePreview()">
+          </div>
+          <div class="nre-field">
+            <label for="cqStatus">Question status</label>
+            <select id="cqStatus" onchange="cqUpdatePreview()">
+              <option value="all">All MCQs</option>
+              <option value="unsolved">Unsolved</option>
+              <option value="solved">Solved</option>
+              <option value="correct">Correct</option>
+              <option value="incorrect">Incorrect</option>
+              <option value="flagged">Flagged</option>
+            </select>
+          </div>
+        </div>
+        <div class="cq-preview" id="cqPreview"></div>
+        <div class="nre-chip-row" style="margin-top:12px">
+          <button class="btn btn-filter active" type="button" onclick="startCustomQuiz()">▶ Start Custom Quiz</button>
+        </div>
+      `;
+      showModal('🎯 Create Quiz', html);
+      document.querySelectorAll('.cq-sys-check').forEach(cb=>cb.addEventListener('change',cqUpdatePreview));
+      cqUpdatePreview();
+    }
+    function cqToggleAllSystems(state){
+      document.querySelectorAll('.cq-sys-check').forEach(cb=>cb.checked=state);
+      cqUpdatePreview();
+    }
+    function cqFilteredQuestions(){
+      const systems = Array.from(document.querySelectorAll('.cq-sys-check:checked')).map(cb=>cb.value);
+      const status = document.getElementById('cqStatus')?.value || 'all';
+      if(!systems.length) return [];
+      return allQuestions().filter(q=>{
+        if(!systems.includes(q._key)) return false;
+        const id = questionId(q);
+        const rec = nreState.stats[id];
+        switch(status){
+          case 'unsolved': return !rec || !rec.attempts;
+          case 'solved': return !!(rec && rec.attempts>0);
+          case 'correct': return !!(rec && rec.lastCorrect===true);
+          case 'incorrect': return !!(rec && rec.lastCorrect===false);
+          case 'flagged': return !!nreState.flags[id];
+          default: return true;
+        }
+      });
+    }
+    function cqUpdatePreview(){
+      const preview = document.getElementById('cqPreview'); if(!preview) return;
+      const systemsChecked = document.querySelectorAll('.cq-sys-check:checked').length;
+      if(!systemsChecked){ preview.textContent='Select at least one system.'; return; }
+      const available = cqFilteredQuestions().length;
+      let count = parseInt(document.getElementById('cqCount')?.value,10); if(isNaN(count)) count=50;
+      count = Math.max(20, Math.min(100, count));
+      preview.textContent = available
+        ? `${available} question${available===1?'':'s'} available — quiz will use ${Math.min(count, available)}.`
+        : 'No questions match these filters.';
+    }
+    function startCustomQuiz(){
+      const systems = Array.from(document.querySelectorAll('.cq-sys-check:checked')).map(cb=>cb.value);
+      if(!systems.length){ alert('Select at least one system.'); return; }
+      let count = parseInt(document.getElementById('cqCount')?.value,10); if(isNaN(count)) count=50;
+      count = Math.max(20, Math.min(100, count));
+      const qs = cqFilteredQuestions();
+      if(!qs.length){ alert('No questions match the selected filters.'); return; }
+      closeNreModal();
+      currentQuestions = shuffle(qs).slice(0, Math.min(count, qs.length)).map(shuffleQuestionOptions);
+      currentQuizKey = currentQuestions[0]._key;
+      currentIndex=0; score=0; missed=[]; answerStates=new Array(currentQuestions.length).fill(null);
+      nreExamMode=false; stopExamTimer();
+      document.getElementById('quizPicker').style.display='none';
+      document.getElementById('quizResult').style.display='none';
+      document.getElementById('quizRunner').style.display='block';
+      document.getElementById('quizRunnerTitle').textContent = systems.length===1 ? QUIZ_DATA[systems[0]].title+' — Custom' : `Custom Quiz (${systems.length} systems)`;
+      document.getElementById('quizModeBadge').textContent = `CUSTOM · ${currentQuestions.length} Q`;
+      renderQuestion();
+    }
+
     function startFilteredQuiz(key){ const qs=nreQuestionPool.filter(q=>q._key===key); if(!qs.length){alert('No questions match the selected filters.');return;} currentQuizKey=key; currentQuestions=shuffle(qs).map(shuffleQuestionOptions); currentIndex=0;score=0;missed=[];answerStates=new Array(currentQuestions.length).fill(null);nreExamMode=false;stopExamTimer(); document.getElementById('quizPicker').style.display='none';document.getElementById('quizResult').style.display='none';document.getElementById('quizRunner').style.display='block';document.getElementById('quizRunnerTitle').textContent=QUIZ_DATA[key].title;document.getElementById('quizModeBadge').textContent='FILTERED QUIZ';renderQuestion(); }
 
     function openAnalytics(){ const rec=Object.values(nreState.stats).filter(x=>x.attempts); const tries=rec.reduce((a,x)=>a+x.attempts,0), cor=rec.reduce((a,x)=>a+x.correct,0); let h=`<div class="nre-analytics"><div class="box"><div class="big">${tries}</div><div class="small">Questions attempted</div></div><div class="box"><div class="big">${tries?Math.round(cor/tries*100):0}%</div><div class="small">Overall accuracy</div></div><div class="box"><div class="big">${Object.values(nreState.flags).filter(Boolean).length}</div><div class="small">Flagged</div></div></div><h3>Personalized weak areas</h3>`+weakAreaHtml(); showModal('Performance Analytics',h); }
@@ -25642,7 +25755,6 @@ const PASS_THRESHOLD = 0.6;
     function startWeakSubject(enc){ const sub=decodeURIComponent(enc); const qs=allQuestions().filter(q=>(q.subject||'')===sub); if(!qs.length)return; currentQuizKey=qs[0]._key; currentQuestions=shuffle(qs).slice(0,50).map(shuffleQuestionOptions); currentIndex=0;score=0;missed=[];answerStates=new Array(currentQuestions.length).fill(null);nreExamMode=false;stopExamTimer();closeNreModal();document.getElementById('quizPicker').style.display='none';document.getElementById('quizResult').style.display='none';document.getElementById('quizRunner').style.display='block';document.getElementById('quizRunnerTitle').textContent=sub+' — Weak Area Practice';document.getElementById('quizModeBadge').textContent='WEAK AREA';renderQuestion(); }
     function showMistakes(){ const qs=allQuestions().filter(q=>nreState.stats[questionId(q)]?.lastCorrect===false); showQuestionListModal('My Mistakes',qs); }
     function showFlagged(){ const qs=allQuestions().filter(q=>nreState.flags[questionId(q)]); showQuestionListModal('Flagged MCQs',qs); }
-    function showLast7Days(){ const ids=new Set(nreState.attempts.filter(a=>a.date>=daysAgoKey(6)).map(a=>a.id)); showQuestionListModal('Last 7 Days',allQuestions().filter(q=>ids.has(questionId(q)))); }
     function showQuestionListModal(title,qs){ let h=qs.length?qs.slice(0,150).map((q,i)=>`<div class="review-item"><strong>${i+1}. ${cleanText(q.q)}</strong><div style="font-size:.7rem;margin-top:4px">${q.subject||''}</div></div>`).join(''):'<div class="intro-banner">No questions here yet.</div>'; showModal(title,`<div class="nre-chip-row"><span class="nre-badge">${qs.length} questions</span></div>`+h); }
     function showModal(title,body){ document.getElementById('nreModalTitle').textContent=title;document.getElementById('nreModalBody').innerHTML=body;document.getElementById('nreModal').classList.add('open'); }
     function closeNreModal(){document.getElementById('nreModal').classList.remove('open');}
@@ -25673,9 +25785,6 @@ const PASS_THRESHOLD = 0.6;
 ['Cholecystitis vs choledocholithiasis vs cholangitis',['Feature','Cholecystitis','Choledocholithiasis','Cholangitis'],['Typical clue','RUQ pain + Murphy sign','CBD stone ± jaundice','Fever + RUQ pain + jaundice']]
     ];
 
-    function showRapidRevision(){const x=[['IBD','Crohn: transmural, skip lesions, fistula/stricture. UC: continuous colitis from rectum, mucosal, toxic megacolon.'],['DKA vs HHS','DKA = ketosis + acidosis. HHS = profound hyperglycemia/hyperosmolality with little ketosis.'],['AKI','Prerenal: low urine sodium. ATN: muddy brown casts. Postrenal: obstruction.'],['Anemia','IDA: low ferritin, high RDW. Thalassemia trait: relatively high RBC count with marked microcytosis.'],['Neuro','UMN: spasticity/hyperreflexia. LMN: wasting, fasciculations, reduced reflexes.'],['Meningitis','Bacterial: neutrophils, high protein, low glucose. Viral: lymphocytes, normal glucose. TB/fungal: lymphocytes, high protein, low glucose.']];showModal('⚡ Rapid Revision','<div class="rapid-list">'+x.map(a=>'<div class="rapid-card"><h3>'+a[0]+'</h3><p>'+a[1]+'</p></div>').join('')+'</div>')}
-    function showStudyDashboard(){const total=Object.values(QUIZ_DATA).reduce((n,q)=>n+q.questions.length,0);const attempted=Object.keys(nreState.answers||{}).length;const acc=attempted?Math.round(Object.values(nreState.answers).filter(x=>x&&x.correct).length/attempted*100):0;showModal('📈 Study Dashboard','<div class="study-dashboard-grid"><div class="dash-card"><b>'+total+'</b><br><small>Unique MCQs</small></div><div class="dash-card"><b>'+attempted+'</b><br><small>Attempted</small></div><div class="dash-card"><b>'+acc+'%</b><br><small>Accuracy</small></div><div class="dash-card"><b>'+Object.keys(nreState.flagged||{}).length+'</b><br><small>Flagged MCQs</small></div></div><hr style="margin:14px 0;border:0;border-top:1px solid var(--border-color)"><p>Use the quiz picker to practice new, flagged, missed and weak areas. Progress remains browser-based; no offline/PWA mode has been added.</p>')}
-    function startWeakAreaQuiz(){showView('quiz');setTimeout(()=>{const weak=Object.entries(QUIZ_DATA).map(([k,v])=>[k,v.questions]).sort((a,b)=>b[1].length-a[1].length)[0]; if(weak) startQuiz(weak[0]);},100)}
 
     function showComparisons(){let h=NRE_COMPARE.map(c=>`<div class="nre-compare"><h3>${c[0]}</h3><table><tr>${c[1].map(x=>`<th>${x}</th>`).join('')}</tr>${c.slice(2).map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</table></div>`).join('');showModal('High-Yield Comparisons',h);}
 
