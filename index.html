@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 <style>
  :root {
  --primary-color: #830e0d;
@@ -93,17 +95,19 @@
 
 
  .site-title {
+ font-family: 'Oswald', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
  font-size: 2.25rem;
- font-weight: 800;
+ font-weight: 700;
  letter-spacing: -0.5px;
  line-height: 1.15;
  }
 
  .author-tag {
+ font-family: Charter, Georgia, 'Source Serif 4', serif;
  font-size: 0.8rem;
  opacity: 0.92;
  margin-top: 0.15rem;
- font-weight: 500;
+ font-weight: 400;
  font-style: italic;
  }
 
@@ -1127,7 +1131,7 @@ img, a { -webkit-user-drag: none; }
 
 <div class="controls-container">
  <div class="search-box">
- <input type="search" id="searchInput" placeholder="Search topics &amp; all clinical content..." autocomplete="off" spellcheck="false" oninput="filterTopics()"><button type="button" class="search-clear" id="searchClear" onclick="clearTopicSearch()" aria-label="Clear search">×</button>
+ <input type="text" id="searchInput" placeholder="Search topics &amp; all clinical content..." autocomplete="off" spellcheck="false" oninput="filterTopics()"><button type="button" class="search-clear" id="searchClear" onclick="clearTopicSearch()" aria-label="Clear search">×</button>
  </div>
  <div class="btn-group">
  <button class="btn" onclick="toggleSystems(true)">📂 Expand All</button>
